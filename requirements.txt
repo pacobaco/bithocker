@@ -1,0 +1,4 @@
+discord.py==2.3.2
+aiohttp==3.9.3  # For webhooks
+sqlite3         # Built-in
+# Optional: gtts for TTS, pyaudio for recording (not included here)
