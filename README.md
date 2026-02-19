@@ -1,149 +1,190 @@
-# BitHocker
+# BitHocker Discord Bot
 
-## Overview
+BitHocker is a versatile, custom Discord bot designed to enhance your
+server with advanced activity logging (messages, app usage, and call
+recordings), casual browsing interfaces for logs, assistive technology
+(AT) integrations for accessibility, and a "spy trap" security feature
+that detects unauthorized probes while handling remote third-party
+consent opt-ins.
 
-BitHocker is a modular development framework designed for scalable
-containerized execution, automated workflow orchestration, and
-infrastructure abstraction. The project emphasizes deterministic builds,
-reproducible environments, and streamlined DevOps integration.
+Built with Python and the discord.py library, it's ideal for communities
+seeking transparency, inclusivity, and robust protection --- from
+editorial banter groups to high-engagement themed communities.
 
-BitHocker is engineered for developers who require: - Lightweight
-container management - Secure execution pipelines - Automated deployment
-hooks - Infrastructure-as-Code extensibility - CI/CD ready architecture
+BitHocker transforms your Discord server into a secure **Activity
+Vault**, ensuring ethical logging with explicit user consent at its
+core.
 
 ------------------------------------------------------------------------
 
-## Core Architecture
+## Table of Contents
 
-BitHocker follows a layered systems design:
+-   Features
+-   Installation
+-   Configuration
+-   Usage
+-   Folder Structure
+-   Contributing
+-   License
+-   Contact
+-   Acknowledgements
 
-1.  **Execution Layer**
-    -   Container lifecycle management
-    -   Runtime isolation
-    -   Resource allocation control
-2.  **Orchestration Layer**
-    -   Pipeline automation
-    -   Event-driven triggers
-    -   Parallel job execution
-3.  **Integration Layer**
-    -   Git-based workflows
-    -   Webhook integration
-    -   API-first extensibility
-4.  **Security Model**
-    -   Least-privilege execution
-    -   Environment variable encapsulation
-    -   Encrypted credential handling
+------------------------------------------------------------------------
+
+## Features
+
+### Comprehensive Logging
+
+-   **Messages** --- Captures texts, edits, deletes, and attachments for
+    consented users.
+-   **App Usage** --- Tracks online time, voice activity, and status
+    changes with daily/weekly reports.
+-   **Call Recordings** --- Voice channel recording stubs (extend with
+    external libraries like `pyaudio`).
+
+### Casual Browsing
+
+-   Searchable log archives via commands (`!log search keyword`).
+-   Usage dashboards accessible through dedicated channels.
+
+### Assistive Technology Enhancements
+
+-   **Text-to-Speech (TTS)** --- `!tts "log text"` (extend with `gtts`).
+-   **Speech-to-Text (STT) Stubs** --- Extend with APIs such as Wit.ai.
+-   **WCAG-aware Design** --- High-contrast support, keyboard-friendly
+    workflows, simplified interfaces.
+
+### Spy Trap Security
+
+-   **Honeypot Detection** --- Logs suspicious probes to admin channels.
+-   **Third-Party Consent Opt-Ins** --- Secure webhook/API-key-based
+    remote signals.
+-   **Ethical Safeguards** --- All logging requires explicit user
+    consent with revocation support.
+
+### Modular Architecture
+
+-   Discord Cogs for modular feature control.
+-   SQLite-backed persistence.
+-   Integration-ready for external systems.
 
 ------------------------------------------------------------------------
 
 ## Installation
 
+### Prerequisites
+
+-   Python 3.10+
+-   Discord Developer Account
+-   Dependencies: `discord.py`, `aiohttp`, `sqlite3`
+
+### Setup
+
+Clone repository:
+
 ``` bash
-git clone https://github.com/pacobaco/bithocker.git
+git clone https://github.com/yourusername/bithocker.git
 cd bithocker
 ```
 
 Install dependencies:
 
 ``` bash
-# Example (customize for your stack)
-npm install
-# or
 pip install -r requirements.txt
 ```
+
+Create bot via Discord Developer Portal: - Enable intents: Message
+Content, Members, Voice States - Copy bot token
+
+Create `.env` file:
+
+``` bash
+DISCORD_TOKEN=your_bot_token_here
+```
+
+Run the bot:
+
+``` bash
+python main.py
+```
+
+For production deployment, use a process manager or cloud hosting
+provider.
 
 ------------------------------------------------------------------------
 
 ## Configuration
 
-Create a configuration file:
+Edit `config.py`:
+
+-   `LOG_CHANNEL_ID`
+-   `APPROVED_THIRD_PARTIES`
+-   Database configuration
+-   Command prefix (default: `!`)
+
+Optional AT libraries:
 
 ``` bash
-cp config.example.yml config.yml
+pip install gtts
 ```
 
-Modify:
-
--   Environment targets
--   Container runtime parameters
--   Deployment hooks
--   Secrets management references
+Ensure required channels exist: - `#message-logs` - `#spy-trap-logs`
 
 ------------------------------------------------------------------------
 
 ## Usage
 
-Basic execution:
+### Logging
 
-``` bash
-bithocker run
-```
+-   Automatic logging for consented users.
+-   `!usage` --- View usage statistics.
 
-Build container:
+### Recording
 
-``` bash
-bithocker build
-```
+-   `!start_record` (admin)
+-   `!stop_record`
 
-Deploy pipeline:
+### Accessibility
 
-``` bash
-bithocker deploy
-```
+-   `!tts`
+-   `!caption`
 
-------------------------------------------------------------------------
+### Spy Trap & Consent
 
-## Development Workflow
+-   `!third_party_optin` (admin)
+-   Suspicious probes auto-log to spy-trap channel.
 
-Recommended workflow:
-
-1.  Create feature branch
-2.  Run local containerized tests
-3.  Execute CI validation
-4.  Merge to main after pipeline success
+Always test in a development server before deploying to production.
 
 ------------------------------------------------------------------------
 
-## CI/CD Integration
+## Folder Structure
 
-BitHocker integrates with:
-
--   GitHub Actions
--   GitLab CI
--   Jenkins
--   Custom pipeline engines
-
-Example GitHub Actions snippet:
-
-``` yaml
-name: CI
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run BitHocker
-        run: bithocker build
-```
-
-------------------------------------------------------------------------
-
-## Roadmap
-
--   Distributed cluster execution
--   Web dashboard
--   Advanced monitoring integration
--   Plugin marketplace
+    BitHocker/
+    ├── main.py
+    ├── config.py
+    ├── cogs/
+    │   ├── logging.py
+    │   ├── recording.py
+    │   ├── accessibility.py
+    │   └── spytrap.py
+    ├── utils/
+    │   └── database.py
+    ├── requirements.txt
+    ├── .env.example
+    └── README.md
 
 ------------------------------------------------------------------------
 
 ## Contributing
 
 1.  Fork repository
-2.  Create branch
-3.  Submit pull request
-4.  Ensure tests pass
+2.  Create feature branch
+3.  Commit changes
+4.  Push branch
+5.  Open Pull Request
+
+Follow PEP 8 standards and include tests where applicable.
 
 ------------------------------------------------------------------------
 
@@ -153,7 +194,16 @@ MIT License
 
 ------------------------------------------------------------------------
 
-## Author
+## Contact
 
-Juan Rodriguez\
-GitHub: https://github.com/pacobaco
+Maintainer: kings for quads ♠️♦️\
+X (Twitter): @contrakant\
+Issues: GitHub Issues
+
+------------------------------------------------------------------------
+
+## Acknowledgements
+
+-   Built with discord.py
+-   Inspired by community-driven transparency and accessibility needs
+-   Thanks to open-source contributors of aiohttp and gtts
