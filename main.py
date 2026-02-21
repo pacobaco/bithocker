@@ -5,7 +5,12 @@ from cogs.logging import LoggingCog
 from cogs.recording import RecordingCog
 from cogs.accessibility import AccessibilityCog
 from cogs.spytrap import SpyTrapCog
+# In main.py, after other imports and bot setup
+from cogs.collaboration import setup as collaboration_setup
 
+# In the async def main() or on_ready:
+if config.ENABLE_COLLAB_FEATURES:
+    await collaboration_setup(bot)
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
